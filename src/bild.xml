@@ -1,0 +1,23 @@
+<project name="Java.1" basedir="." default="test">
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="main/java" destdir="bin"/>
+    </target>
+    <target name="test-compile">
+        <javac srcdir="test/java" destdir="bin"/>
+    </target>
+    <target name="test" depends="test-compile">
+        <junit>
+            <classpath>
+                <pathelement location="bin"/>
+            </classpath>
+            <formatter type="plain"/>
+            <test name="com.kn146.kostia.UserTest"></test>
+        </junit>
+    </target>
+</project>

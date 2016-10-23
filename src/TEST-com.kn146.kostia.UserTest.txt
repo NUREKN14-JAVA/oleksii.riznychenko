@@ -1,0 +1,5 @@
+Testsuite: com.kn146.kostia.UserTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+
+Testcase: testGetAge took 0 sec
+Testcase: testFullName took 0 sec
