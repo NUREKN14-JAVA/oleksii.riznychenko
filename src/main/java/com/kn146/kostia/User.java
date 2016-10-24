@@ -11,7 +11,7 @@ public class User {
     private Long id;
     private String firstname;
     private String lastNam;
-    private Date dateOfBirthd;
+    private final Date dateOfBirthd;
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
