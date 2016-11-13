@@ -15,12 +15,16 @@ public class UserTest {
 
     private User user;
     private Date dateOfBirthd;
+    final private int year = 1997;
+    final private int day = 7;
+    final private int old = 19;
+
 
     @Before
     public void setUp() throws Exception {
         user = new User();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(1997, Calendar.JULY, 7);
+        calendar.set(year, Calendar.JULY, day);
         dateOfBirthd = calendar.getTime();
     }
 
@@ -34,7 +38,7 @@ public class UserTest {
     @Test
     public void testGetAge(){
         user.setDateOfBirthd(dateOfBirthd);
-        assertEquals(19, user.getAge());
+        assertEquals(old, user.getAge());
     }
 
 }
