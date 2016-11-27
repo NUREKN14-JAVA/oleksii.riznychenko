@@ -15,8 +15,12 @@ hs_err_pid*
 # Target, bin and settings
 target*
 bin*
-out*
-.idea*
 .settings*
 .classpath
 .project
+db/java.1.tmp/
+db/java1.tmp/
+src/lib/
+/Java.1.iml
+/.idea/
+/out/

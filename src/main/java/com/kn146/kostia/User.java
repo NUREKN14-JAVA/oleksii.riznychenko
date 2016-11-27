@@ -11,7 +11,22 @@ public class User {
     private Long id;
     private String firstname;
     private String lastNam;
-    private final Date dateOfBirthd;
+    private Date dateOfBirthd;
+
+    public User(String firstname, String lastNam, Date dateOfBirthd) {
+        this.firstname = firstname;
+        this.lastNam = lastNam;
+        this.dateOfBirthd = dateOfBirthd;
+    }
+
+    public User(Long id, String firstname, String lastNam, Date dateOfBirthd) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastNam = lastNam;
+        this.dateOfBirthd = dateOfBirthd;
+    }
+
+    public User() {}
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -61,5 +76,18 @@ public class User {
         int carT = cal.get(Calendar.YEAR);
         cal.setTime(dateOfBirthd);
         return carT - cal.get(Calendar.YEAR);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id != null ? id.equals(user.id) : user.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

@@ -6,43 +6,50 @@ import java.util.Properties;
 /**
  * Created by Константин on 09-Nov-16.
  */
-public class DaoFactory {
+public abstract class DaoFactory {
 
-    public static final String USER_DAO = "dao.com.kn146.kostia.java.1.db.UserDao";
-    private  final Properties properties;
+    protected static final String USER_DAO = "dao.com.kn146.kostia.java.1.db.UserDao";
+    private static final String DAO_FACTORY = "dao.factory";
+    protected static Properties properties;
 
-    public static DaoFactory getINSTANCE() {
-        return INSTANCE;
-    }
-
-    private final static DaoFactory INSTANCE = new DaoFactory();
-
-    private DaoFactory(){
+    static {
         properties = new Properties();
         try{
-            properties.load(getClass().getClassLoader().getResourceAsStream("setting.properties"));
+            properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("setting.properties"));
         }catch (IOException e){
             throw new RuntimeException(e);
         }
     }
-
-    private  ConnectionFactory getConnectionFactory(){
-        String user = properties.getProperty("connection.user");
-        String password = properties.getProperty("connection.password");
-        String url = properties.getProperty("connection.url");
-        String driver = properties.getProperty("connection.driver");
-        return new ConnectionFactoryImpl(driver, url, user, password);
-    }
-
-    public  UserDao getUserDao(){
-        UserDao result = null;
-        try {
-            Class clasz = Class.forName(properties.getProperty(USER_DAO));
-            result = (UserDao) clasz.newInstance();
-            result.setConnectionFactory(getConnectionFactory());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    public static synchronized DaoFactory getInstance() {
+        if(instance == null) {
+            try {
+                Class factoryClass = Class.forName(properties.getProperty(DAO_FACTORY));
+                instance = (DaoFactory) factoryClass.newInstance();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
-        return result;
+        return instance;
     }
+
+    private static DaoFactory instance;
+
+    protected DaoFactory(){
+
+    }
+
+    public void init(Properties properties){
+        this.properties = properties;
+        instance = null;
+    }
+
+    protected ConnectionFactory getConnectionFactory(){
+        return new ConnectionFactoryImpl(properties);
+    }
+
+    public abstract UserDao getUserDao();
 }
