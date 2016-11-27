@@ -3,6 +3,7 @@ package com.kn146.kostia.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by Константин on 07-Nov-16.
@@ -19,6 +20,13 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
         this.url = url;
         this.user = user;
         this.password = password;
+    }
+
+    public ConnectionFactoryImpl(Properties properties) {
+        this.driver = properties.getProperty("connection.driver");
+        this.url = properties.getProperty("connection.url");
+        this.user = properties.getProperty("connection.user");
+        this.password = properties.getProperty("connection.password");
     }
 
     @Override
