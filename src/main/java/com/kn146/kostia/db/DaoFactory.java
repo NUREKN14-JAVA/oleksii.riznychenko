@@ -42,8 +42,8 @@ public abstract class DaoFactory {
 
     }
 
-    public void init(Properties properties){
-        this.properties = properties;
+    public static void init(Properties pro){
+        properties = pro;
         instance = null;
     }
 
